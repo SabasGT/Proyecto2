@@ -1,7 +1,15 @@
 import ve.usb.libGrafo.*
 import java.io.File
 
-// Funcion que revisa el tablero introducido y comprueba si es posible resolverlo
+/*  Funcion que revisa el tablero introducido y comprueba si es posible resolverlo
+    Parametros: 
+                archivo: Documento de texto ya abierto
+    Precondicion:
+                Ninguna
+    Postcondicion:
+                Se retorna un booleano Verdadero si el tablero 8 Puzzle extraido del archivo tiene solución
+                O Falso si no tiene solucion.
+*/
 fun resolvible(archivo: File): Boolean {
     var listaNum: MutableList<Int> = mutableListOf()
 
