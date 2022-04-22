@@ -11,7 +11,7 @@ import kotlin.math.abs
                 Se retorna un booleano Verdadero si el tablero 8 Puzzle extraido del archivo tiene solución
                 O Falso si no tiene solucion.
 */
-fun resolvible(archivo: File): Boolean {
+fun posible(archivo: File): Boolean {
     var listaNum: MutableList<Int> = mutableListOf()
 
     // Guardamos la secuencia de numeros en una lista
@@ -141,7 +141,7 @@ fun main(args: Array<String>) {
             throw RuntimeException("No se encontro el archivo ${archivo}")
         }
 
-    if (resolvible(arch) == true) {
+    if (posible(arch) == true) {
         val inicio = System.nanoTime()  // Comenzar a medir el tiempo de ejecucion.
         println("El tablero tiene solucion.")
 
