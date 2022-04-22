@@ -1,5 +1,6 @@
 import ve.usb.libGrafo.*
 import java.io.File
+import kotlin.math.abs
 
 /*  Funcion que revisa el tablero introducido y comprueba si es posible resolverlo
     Parametros: 
@@ -40,6 +41,83 @@ fun resolvible(archivo: File): Boolean {
         println("Cantidad de Inversiones: $inversiones.")
         return false
     }
+}
+
+fun heuristica(modo: String, tablero: MutableList<MutableList<Int?>>): Int {
+    var valor: Int = 0
+
+    when (modo){
+        "z" -> {    // Retorna 0
+            return valor
+        }
+        "d" -> {    // Numero de Cuadros Desordenados
+            val orden: List<List<Int>> = listOf(listOf(1,2,3), listOf(4,5,6), listOf(7,8,0))
+
+            if (orden[0][0] !== tablero[0][0]){
+                valor++
+            }
+
+            if (orden[0][1] !== tablero[0][1]){
+                valor++
+            }
+            if (orden[0][2] !== tablero[0][2]){
+                valor++
+            }
+            if (orden[1][0] !== tablero[1][0]){
+                valor++
+            }
+
+            if (orden[1][1] !== tablero[1][1]){
+                valor++
+            }
+            if (orden[1][2] !== tablero[1][2]){
+                valor++
+            }
+            if (orden[2][0] !== tablero[2][0]){
+                valor++
+            }
+
+            if (orden[2][1] !== tablero[2][1]){
+                valor++
+            }
+            return valor
+        }
+        "m" -> {    // Distancia Manhattan
+            for (num in 1..8){
+                for (i in 0..2){
+                    for (j in 0..2){
+                        if (tablero[i][j] == num){
+                            when (num){
+                                1 -> valor = valor + abs(0 - i) + abs(0 - j)
+                                2 -> valor = valor + abs(0 - i) + abs(1 - j)
+                                3 -> valor = valor + abs(0 - i) + abs(2 - j)
+                                4 -> valor = valor + abs(1 - i) + abs(0 - j)
+                                5 -> valor = valor + abs(1 - i) + abs(1 - j)
+                                6 -> valor = valor + abs(1 - i) + abs(2 - j)
+                                7 -> valor = valor + abs(2 - i) + abs(0 - j)
+                                8 -> valor = valor + abs(2 - i) + abs(1 - j)
+                            }
+                        }
+                    }
+                }
+            }
+            return valor
+        }
+        "b" -> {    // Distancia Blanco
+            for (i in 0..2){
+                for (j in 0..2){
+                    if (tablero[i][j] == 0){
+                        valor = abs(2 - i) + abs(2 - j)
+                    }
+                }
+            }
+
+            return valor
+        }
+        else -> throw RuntimeException("El modo introducido de Heuristica no es valido.")
+    }
+
+    return valor
 }
 
 
